@@ -15,6 +15,10 @@ const Todo = mongoose.model('Todo', {
     type: Number,
     default: null,
   },
+  amphibian: {
+    type: Boolean,
+    default: false,
+  },  
 });
 
 module.exports = {

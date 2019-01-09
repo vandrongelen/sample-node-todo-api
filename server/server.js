@@ -36,7 +36,7 @@ app.get('/todos', (req, res) => {
 
 // GET todos/123455
 app.get('/todos/:id', (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params.id;
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
@@ -54,7 +54,7 @@ app.get('/todos/:id', (req, res) => {
 });
 
 app.delete('/todos/:id', (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params.id;
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
@@ -92,7 +92,7 @@ app.delete('/todos/:id', (req, res) => {
 // });
 
 app.patch('/todos/:id', (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params.id;
   const body = _.pick(req.body, ['text', 'completed']);
 
   if (!ObjectID.isValid(id)) {

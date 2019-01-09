@@ -1,4 +1,4 @@
-const {MongoClient, ObjectID} = require('mongoDB');
+const { MongoClient, ObjectID } = require('mongoDB');
 
 MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   if (err) {
@@ -15,19 +15,31 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   //   console.log('Unable to fetch todos', err);
   // });
 
-  // db.collection('Todos').find().count().then((count) => {
-  //   console.log(`Todos count: ${count}`);
+  // ('Users').find({
+  //   name: 'Casey'
+  // }).count().then((count) => {
+  //   console.log(`Users count Casey: ${count}`);
   // }, (err) => {
   //   console.log('Unable to fetch todos', err);
   // });
 
-  db.collection('Users').find({
-    name: 'Casey'
-  }).count().then((count) => {
-    console.log(`Users count Casey: ${count}`);
-  }, (err) => {
-    console.log('Unable to fetch todos', err);
+  // db.close();
+
+  /* eslint-disable */
+
+  db.collection('Todos').find().forEach(function(document) {
+    var value = document.amphibian;
+    // You need a strategie for names with more then 2 words
+    db.collection('Todos').update(
+      { _id: document._id },
+      { 
+        $set: {
+          'newkey': value,
+        }
+      }
+    )
   });
 
-  // db.close();
+  db.close();
+  /* eslint-enable */
 });
