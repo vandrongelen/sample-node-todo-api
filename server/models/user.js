@@ -88,11 +88,7 @@ UserSchema.pre('save', function (next) {
     next();
   }
 });
-
-
 /* eslint-enable */
-
-
 
 const User = mongoose.model('User', UserSchema);
 
