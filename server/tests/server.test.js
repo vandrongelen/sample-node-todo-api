@@ -232,7 +232,7 @@ describe('POST /users', () => {
   it('should not create user if email is in use', (done) => {
     request(app)
     .post('/users')
-    .send({email: 'casey@example.com', password: '123mnb!'})
+    .send({email: users[0].email, password: '123mnb!'})
     .expect(400)
     .end(done);
   })
