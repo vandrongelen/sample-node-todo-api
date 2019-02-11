@@ -218,7 +218,6 @@ describe('POST /users', () => {
           done();
         });
       });
-
   });
 
   it('should return validation errors if request invalid', (done) => {    
@@ -227,13 +226,33 @@ describe('POST /users', () => {
       .send({email: 'example.com', password: '123'})
       .expect(400)
       .end(done);
-  })
+  });
   
   it('should not create user if email is in use', (done) => {
     request(app)
-    .post('/users')
-    .send({email: users[0].email, password: '123mnb!'})
-    .expect(400)
-    .end(done);
-  })
-})
+      .post('/users')
+      .send({email: users[0].email, password: '123mnb!'})
+      .expect(400)
+      .end(done);
+  });
+});
+
+describe('DELETE /users/me/token', () => {
+  it('should remove token on logout', (done) => {
+    request(app)
+      .delete('/users/me/token')
+      .set('x-auth', users[0].tokens[0].token)
+      .expect(200)
+      .end((err) => {
+        if (err) {
+          return done(err);
+        }
+
+        User.findById(users[0]._id).then((user) => {
+          expect(user).toExist();
+          expect(user.tokens.length).toBe(0);
+          done();
+        }).catch((e) => done(e));
+      });
+  });
+});
